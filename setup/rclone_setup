@@ -15,6 +15,9 @@ printf "\t- Enter Rclone cloud endpoint: $(echo -n $(printenv RCLONE_CLOUD_ENDPO
 fi
 printf "\t- Choose Google Drive [Press 7]\n"
 printf "\t- If you have a client id paste it here or leave it blank\n"
+if [ "$(printenv ROOT_NODE_ID)" != "" ]; then
+printf "\t- Use root id: $(echo -n $(printenv ROOT_NODE_ID)\n"
+fi
 printf "\t- Choose headless machine [Press N]\n"
 printf "\t- Open the url in your browser and enter the verification code\n\n"
 
