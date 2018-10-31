@@ -10,7 +10,7 @@ local_decrypt_dir="/local-decrypt"
 local_media_dir="/local-media"
 
 rclone_config="--config=/config/rclone.conf"
-rclone_options="${rclone_config} --buffer-size $(printenv BUFFER_SIZE) --checkers $(printenv CHECKERS)"
+rclone_options="${rclone_config} --buffer-size $(printenv BUFFER_SIZE) --checkers $(printenv CHECKERS) --exclude @eaDir/**"
 
 if [ ! -z $(printenv RCLONE_BW_LIMIT) ]; then
     rclone_options="${rclone_options} --bwlimit $(printenv RCLONE_BW_LIMIT)"
