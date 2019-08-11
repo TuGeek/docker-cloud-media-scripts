@@ -16,15 +16,12 @@ if [ ! -z $(printenv RCLONE_BW_LIMIT) ]; then
     rclone_options="${rclone_options} --bwlimit $(printenv RCLONE_BW_LIMIT)"
 fi
 
-rclone_mount_options="${rclone_options} --allow-non-empty --allow-other --max-read-ahead $(printenv MAX_READ_AHEAD) --uid ${_puid:-911} --gid ${_pgid:-911}"
+rclone_mount_options="${rclone_options} --allow-non-empty --allow-other --max-read-ahead $(printenv MAX_READ_AHEAD) --uid ${_puid:-911} --gid ${_pgid:-911} --umask $(printenv RCLONE_MOUNT_UMASK)"
 
 plexdrive_temp_dir="/chunks"
-plexdrive_options="--config=/config --temp=${plexdrive_temp_dir} --chunk-size=$(printenv CHUNK_SIZE) --clear-chunk-age=$(printenv CLEAR_CHUNK_AGE) --uid=${_puid:-911} --gid=${_pgid:-911} -o allow_other"
+plexdrive_options="--config=/config --temp=${plexdrive_temp_dir} --chunk-size=$(printenv CHUNK_SIZE) --clear-chunk-age=$(printenv CLEAR_CHUNK_AGE) --uid=${_puid:-911} --gid=${_pgid:-911} -o allow_other --umask=$(printenv PLEXDRIVE_MOUNT_UMASK) --root-node-id=$(printenv ROOT_NODE_ID)"
 if [ ! -z $(printenv CLEAR_CHUNK_MAX_SIZE) ]; then
     plexdrive_options="${plexdrive_options} --clear-chunk-max-size=$(printenv CLEAR_CHUNK_MAX_SIZE)"
-fi
-if [ ! -z $(printenv ROOT_NODE_ID) ]; then
-    plexdrive_options="${plexdrive_options} --root-node-id=$(printenv ROOT_NODE_ID)"
 fi
 
 if [ "$(printenv READ_ONLY)" != "0" ]; then
